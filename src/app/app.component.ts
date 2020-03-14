@@ -1,49 +1,30 @@
 import { Component } from '@angular/core';
-import { from } from 'rxjs';
-import { interval } from 'rxjs';
-import { ajax } from 'rxjs/ajax';
-
-const data = from('Hello world');
-
-
-const apiData = ajax('https://server.hexbird.mx:3001/api/tasks/getTasks');
-
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { ApiService } from '../app/api.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+
+  constructor(private http: HttpClient, private api: ApiService){}
+
   title = 'rxjs-tests';
-
+  data$: Observable<Array<any>>;
   ngOnInit() {
-    this.test1();
+    this.getData();
   }
 
-  test1() {
-    data.subscribe({
-      next(response) {
-        console.log(response);
+  getData() {
+    this.api.requestData().subscribe(
+      res => {
+        console.log(res);
       },
-      error(err) {
-        console.error('Error: ' + err);
-      },
-      complete() {
-        console.log('Completed');
+      err => {
+        console.log(err);
       }
-    });
+    );
   }
-
-  test2() {
-    const secondsCounter = interval(1000);
-    // Subscribe to begin publishing values
-    secondsCounter.subscribe(n =>
-      console.log(`It's been ${n} seconds since subscribing!`));
-  }
-
-  test3() {
-    apiData.subscribe(res => console.log(res.status, res.response));
-
-  }
-
 }
