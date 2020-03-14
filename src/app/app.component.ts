@@ -3,8 +3,9 @@ import { from } from 'rxjs';
 import { interval } from 'rxjs';
 import { ajax } from 'rxjs/ajax';
 
-
 const data = from('Hello world');
+
+
 const apiData = ajax('https://server.hexbird.mx:3001/api/tasks/getTasks');
 
 @Component({
@@ -21,9 +22,15 @@ export class AppComponent {
 
   test1() {
     data.subscribe({
-      next(response) { console.log(response); },
-      error(err) { console.error('Error: ' + err); },
-      complete() { console.log('Completed'); }
+      next(response) {
+        console.log(response);
+      },
+      error(err) {
+        console.error('Error: ' + err);
+      },
+      complete() {
+        console.log('Completed');
+      }
     });
   }
 
