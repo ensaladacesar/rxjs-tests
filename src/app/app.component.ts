@@ -4,7 +4,7 @@ import { interval } from 'rxjs';
 import { ajax } from 'rxjs/ajax';
 
 
-const data = from(fetch('https://server.hexbird.mx:3001/api/tasks/getTasks'));
+const data = from('Hello world');
 const apiData = ajax('https://server.hexbird.mx:3001/api/tasks/getTasks');
 
 @Component({
@@ -16,12 +16,12 @@ export class AppComponent {
   title = 'rxjs-tests';
 
   ngOnInit() {
-    this.test3();
+    this.test1();
   }
 
   test1() {
     data.subscribe({
-      next(response) { console.log(response.body); },
+      next(response) { console.log(response); },
       error(err) { console.error('Error: ' + err); },
       complete() { console.log('Completed'); }
     });
